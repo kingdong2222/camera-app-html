@@ -1,61 +1,69 @@
-<html lang=”en”>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
 
-		<!-- Name of the app -->
-		<title>Camera App</title>
+<body>
+<!-- drawing canvas for filtering image -->
+<canvas id="filtercanvas" width="250" height="333"></canvas>
+<hr>
+<button id="savbtn">Save to Local</button>
+<button id="cpybtn">Copy Original to Local</button>
 
-		<!-- Link to main style sheet -->
-		<link rel="stylesheet" href="style.css"> 
-	</head>
-	<body>
-		<h1>Testing demo</h1>
-		<h2>For Image</h2>
-		<div class="example-block">
-			<img id ="image-preview" height="300"/>
-			<input type="file" name="image" accept="image/*" capture id="image-camera" onchange="UploadImage(files)">
-			<a id='download_image_link' download='Image test demo'>Save image to library</a>
-		  </div>
-		  
-		  <h2>For Video</h2>
-		  
-		  <div class="example-block" id="video-camera">
-			<video id="video-preview" height="300" controls></video>
-			<input type="file" name="video" accept="video/*" capture onchange="UploadVideo(files)">
-		  </div>
+<script>
+function grayscale(img) {
+    var canvas = document.getElementById("filtercanvas");
+	var ctx = canvas.getContext('2d');
+	ctx.drawImage(img, 0, 0);
+	var img_data = ctx.getImageData(0, 0, img.width, img.height);
+	var data = img_data.data;
+	for (var i=0; i<data.length; i+=4) {
+		var brightness = 0.299 * data[i] + 0.587 * data[i+1] + 0.114 * data[i+2];
+		data[i] = brightness;
+		data[i+1] = brightness;
+		data[i+2] = brightness;
+	}
 
-		<!-- Reference to your JavaScript file -->
-		<script>
-			UploadImage = (value) => {
-				var source = value[0]
-				var reader  = new FileReader();
-				var image_preview = document.getElementById("image-preview")
-				var download_image_link = document.getElementById("download_image_link")
-				reader.onloadend = function () {
-					image_preview.src = reader.result;
-					download_image_link.href = reader.result;
-				}
-				if (source) {
-					reader.readAsDataURL(source);
-				} else {
-					image_preview.src = "";
-				}
-			}
-			UploadVideo = (value) => {
-				var source = value[0]
-				var reader  = new FileReader();
-				var video_preview = document.getElementById("video-preview")
-				reader.onloadend = function () {
-					video_preview.src = reader.result;
-				}
-				if (source) {
-					reader.readAsDataURL(source);
-				} else {
-					video_preview.src = "";
-				}
-			}
-		</script> 
-	</body>
+	ctx.putImageData(img_data, 0, 0);
+}
+var img = new Image();
+img.onload = function() { grayscale(this); }
+img.src = "images/face.jpg";
+
+function save_canvas() {
+	var canvas = document.getElementById("filtercanvas");
+	var duri = canvas.toDataURL();
+	var data = duri.substr(duri.indexOf(',')+1);
+
+	var onerror = function(err) {
+		console.log(err.name + " : " + err.message)
+	}
+	var onstream = function(stream) {
+		stream.writeBase64(data);
+		stream.close();
+	}
+	var onsuccess = function(dir) {
+		var f = dir.createFile("face.png");
+		f.openStream("w", onstream, onerror, "UTF-8");
+	}
+	
+	tizen.filesystem.resolve("images", onsuccess, onerror, "rw");
+}
+
+function copy_image() {
+	var onerror = function(err) {
+		console.log(err.name + " : " + err.message)
+	}
+	var onsuccess = function(dir) {
+		dir.copyTo("wgt-package/images/face.jpg", "images/face_original.jpg", true);
+	}
+	tizen.filesystem.resolve("images", onsuccess, onerror, "rw");
+}
+
+document.getElementById("savbtn").addEventListener("click", save_canvas, false);
+document.getElementById("cpybtn").addEventListener("click", copy_image, false);
+</script>
+</body>
 </html>

@@ -13,24 +13,48 @@
 	<body>
 		<h1>Testing demo</h1>
 		<h2>For Image</h2>
-		<form action="#" method="post" enctype="multipart/form-data">
-			<img id ="image-preview" />
-			<input type="file" name="image" accept="image/*" capture id="image-camera" onchange="UploadImage(value); return false;">
-		  </form>
+		<div class="example-block">
+			<img id ="image-preview" height="300"/>
+			<input type="file" name="image" accept="image/*" capture id="image-camera" onchange="UploadImage(files)">
+			<a id='download_image_link' download='Image test demo'>Save image to library</a>
+		  </div>
 		  
 		  <h2>For Video</h2>
 		  
-		  <form action="#" method="post" enctype="multipart/form-data" id="video-camera">
-			<input type="file" name="video" accept="video/*" capture>
-		  </form>
+		  <div class="example-block" id="video-camera">
+			<video id="video-preview" height="300" controls></video>
+			<input type="file" name="video" accept="video/*" capture onchange="UploadVideo(files)">
+		  </div>
 
 		<!-- Reference to your JavaScript file -->
 		<script>
 			UploadImage = (value) => {
+				var source = value[0]
+				var reader  = new FileReader();
 				var image_preview = document.getElementById("image-preview")
-				if(value || value != null){
-					image_preview.src = value
+				var download_image_link = document.getElementById("download_image_link")
+				reader.onloadend = function () {
+					image_preview.src = reader.result;
+					download_image_link.href = reader.result;
+				}
+				if (source) {
+					reader.readAsDataURL(source);
+				} else {
+					image_preview.src = "";
+				}
 			}
+			UploadVideo = (value) => {
+				var source = value[0]
+				var reader  = new FileReader();
+				var video_preview = document.getElementById("video-preview")
+				reader.onloadend = function () {
+					video_preview.src = reader.result;
+				}
+				if (source) {
+					reader.readAsDataURL(source);
+				} else {
+					video_preview.src = "";
+				}
 			}
 		</script> 
 	</body>

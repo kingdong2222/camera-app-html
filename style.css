@@ -42,3 +42,8 @@ html, body{
     right: 20px;
     z-index: 2;
 }
+
+.example-block{
+    display: flex;
+    flex-direction: column;
+}

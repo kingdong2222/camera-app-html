@@ -14,7 +14,8 @@
 		<h1>Testing demo</h1>
 		<h2>For Image</h2>
 		<form action="#" method="post" enctype="multipart/form-data">
-			<input type="file" name="image" accept="image/*" capture id="image-camera">
+			<img id ="image-preview" />
+			<input type="file" name="image" accept="image/*" capture id="image-camera" onchange="UploadImage(value); return false;">
 		  </form>
 		  
 		  <h2>For Video</h2>
@@ -24,6 +25,13 @@
 		  </form>
 
 		<!-- Reference to your JavaScript file -->
-		<script src="app.js"></script> 
+		<script>
+			UploadImage = (value) => {
+				var image_preview = document.getElementById("image-preview")
+				if(value || value != null){
+					image_preview.src = value
+			}
+			}
+		</script> 
 	</body>
 </html>

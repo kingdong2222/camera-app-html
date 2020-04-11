@@ -1,59 +1,69 @@
 <html lang=”en”>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<!-- Name of the app -->
-		<title>Camera App</title>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<!-- Link to main style sheet -->
-		<link rel="stylesheet" href="style.css"> 
-	</head>
-	<body>
+	<!-- Name of the app -->
+	<title>Camera App</title>
+
+	<!-- Link to main style sheet -->
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<main class="main-body">
 		<h1>Testing demo</h1>
 		<h2>For Image</h2>
 		<div class="example-block">
-			<img id ="image-preview" height="300"/>
+			<div class="container">
+				<img class='image-preview' id="image-preview" src="http://via.placeholder.com/414x736?text=Your+Face">
+				<img id="image-frame" src="./images/fameimage.png" />
+			</div>
+			
 			<input type="file" name="image" accept="image/*" capture id="image-camera" onchange="UploadImage(files)">
-		  </div>
-		  
-		  <h2>For Video</h2>
-		  
-		  <div class="example-block" id="video-camera">
+		</div>
+
+		<h2>For Video</h2>
+
+		<div class="example-block" id="video-camera">
 			<video id="video-preview" height="300" controls></video>
 			<input type="file" name="video" accept="video/*" capture onchange="UploadVideo(files)">
-		  </div>
+		</div>
+	</main>
 
-		<!-- Reference to your JavaScript file -->
-		<script>
-			UploadImage = (value) => {
-				var source = value[0]
-				var reader  = new FileReader();
-				var image_preview = document.getElementById("image-preview")
-				var download_image_link = document.getElementById("download_image_link")
-				reader.onloadend = function () {
-					image_preview.src = reader.result;
-				}
-				if (source) {
-					reader.readAsDataURL(source);
-				} else {
-					image_preview.src = "";
-				}
+
+	<!-- Reference to your JavaScript file -->
+	<script>
+		UploadImage = (value) => {
+			var source = value[0]
+			var reader = new FileReader();
+			var image_preview = document.getElementById("image-preview")
+			var download_image_link = document.getElementById("download_image_link")
+			reader.onloadend = function () {
+				image_preview.src = reader.result;
 			}
-			UploadVideo = (value) => {
-				var source = value[0]
-				var reader  = new FileReader();
-				var video_preview = document.getElementById("video-preview")
-				reader.onloadend = function () {
-					video_preview.src = reader.result;
-				}
-				if (source) {
-					reader.readAsDataURL(source);
-				} else {
-					video_preview.src = "";
-				}
+			if (source) {
+				reader.readAsDataURL(source);
+			} else {
+				image_preview.src = "";
 			}
-		</script> 
-	</body>
+		}
+		UploadVideo = (value) => {
+			var source = value[0]
+			var reader = new FileReader();
+			var video_preview = document.getElementById("video-preview")
+			reader.onloadend = function () {
+				video_preview.src = reader.result;
+			}
+			if (source) {
+				reader.readAsDataURL(source);
+			} else {
+				video_preview.src = "";
+			}
+		}
+	</script>
+</body>
+
 </html>

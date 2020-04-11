@@ -12,22 +12,21 @@
 	</head>
 	<body>
 
-		<!-- Camera -->
-		<main id="camera">
+		<h2>For Image</h2>
+		<form action="#" method="post" enctype="multipart/form-data">
+			<input type="file" name="image" accept="image/*" capture>
+			<input type="submit" value="Upload">
+		  </form>
+		  
+		  <h2>For Video</h2>
+		  
+		  <form action="#" method="post" enctype="multipart/form-data">
+			<input type="file" name="video" accept="video/*" capture>
+			<input type="submit" value="Upload">
+		  </form>
 
-		    <!-- Camera sensor -->
-		    <canvas id="camera--sensor"></canvas>
-		    
-		    <!-- Camera view -->
-		    <video id="camera--view" autoplay playsinline></video>
-		    
-		    <!-- Camera output -->
-		    <img src="//:0" alt="" id="camera--output">
-
-		    <!-- Camera trigger -->
-		    <button id="camera--trigger">Take a picture</button>
-
-		</main>
+		  <h2>For Image & Video</h2>
+		  <input type="file">
 
 		<!-- Reference to your JavaScript file -->
 		<script src="app.js"></script> 

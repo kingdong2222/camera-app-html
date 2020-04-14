@@ -14,11 +14,11 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 2</h1>
+		<h1>DEMO 3</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;" (click)="file.change()">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
-			<input type="file" name="image" accept="image/*;capture=camera" id="image-camera"
+			<input type="file" name="image" accept="image/*,capture=camera" id="image-camera"
 				onchange="UploadImage(files)" #file>
 		</div>
 		<img id='img-test' />

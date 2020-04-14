@@ -21,6 +21,7 @@
 			<input type="file" name="image" accept="image/*,video/*,capture=camera" id="image-camera"
 				onchange="UploadImage(files)" #file>
 		</div>
+		<img id='img-test' />
 		<div id="note"></div>
 	</main>
 
@@ -62,6 +63,7 @@
 					var img2 = new Image();
 					img2.src = reader.result
 					img2.onload = () => {
+						document.getElementById('img-test').src = reader.result
 						var rwh = img2.width / img2.height
 						var newWidth = c.width
 						var newHeight = newWidth / rwh

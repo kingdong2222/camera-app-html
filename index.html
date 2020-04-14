@@ -75,10 +75,10 @@
 					video = document.createElement('VIDEO')
 					// video.muted = true
 					video.src = reader.result
-					document.getElementById('note').innerText = video.src
 					video.play()
 					video.onloadeddata = () => {
 						var rwh = video.videoWidth / video.videoHeight
+						document.getElementById('note').innerText = rwh
 						var newWidth = c.width
 						var newHeight = newWidth / rwh
 						if (rwh > 1) {

@@ -56,6 +56,7 @@
 			if (source) {
 				reader.readAsDataURL(source);
 			}
+			document.getElementById('note').innerText = note
 			reader.onloadend = () => {
 				if (type === 'image') {
 					var img2 = new Image();
@@ -78,7 +79,6 @@
 					video = document.createElement('VIDEO')
 					// video.muted = true
 					video.src = reader.result
-					document.getElementById('note').innerText = note
 					video.play()
 					video.onloadeddata = () => {
 						var rwh = video.videoWidth / video.videoHeight

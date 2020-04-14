@@ -14,11 +14,11 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 1</h1>
+		<h1>DEMO 2</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;" (click)="file.change()">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
-			<input type="file" name="image" accept="image/*,video/*,capture=camera" id="image-camera"
+			<input type="file" name="image" accept="image/*;capture=camera" id="image-camera"
 				onchange="UploadImage(files)" #file>
 		</div>
 		<img id='img-test' />
@@ -62,10 +62,9 @@
 				if (type === 'image') {
 					var img2 = new Image();
 					img2.src = reader.result
-					document.getElementById('img-test').src = reader.result
-					var img3 = document.getElementById('img-test')
-					img3.onload = () => {
-						var rwh = img3.width / img3.height
+					// document.getElementById('img-test').src = reader.result
+					img2.onload = () => {
+						var rwh = img2.width / img2.height
 						var newWidth = c.width
 						var newHeight = newWidth / rwh
 						if (rwh > 1) {
@@ -74,7 +73,7 @@
 						}
 						var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
 						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
-						ctx.drawImage(img3, xOffset, yOffset, newWidth, newHeight);
+						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
 					}
 				}

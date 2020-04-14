@@ -15,52 +15,84 @@
 <body>
 	<main class="main-body">
 		<h1>Testing demo</h1>
-		<h2>For Image</h2>
+		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;" (click)="file.change()">
+			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
-			<div class="container">
-				<img class='image-preview' id="image-preview" src="http://via.placeholder.com/414x736?text=Your+Face">
-				<img id="image-frame" src="./images/fameimage.png" />
-			</div>
-			
-			<input type="file" name="image" accept="image/*;capture=camera"  id="image-camera" onchange="UploadImage(files)">
-		</div>
-
-		<h2>For Video</h2>
-
-		<div class="example-block" id="video-camera">
-			<video id="video-preview" height="300" controls></video>
-			<input type="file" name="video" accept="video/*;capture=camera"  onchange="UploadVideo(files)">
+			<input type="file" name="image" accept="image/*,video/*,capture=camera" capture id="image-camera"
+				onchange="UploadImage(files)" #file>
 		</div>
 	</main>
 
 
 	<!-- Reference to your JavaScript file -->
 	<script>
-		UploadImage = (value) => {
-			var source = value[0]
-			var reader = new FileReader();
-			var image_preview = document.getElementById("image-preview")
-			var download_image_link = document.getElementById("download_image_link")
-			reader.onloadend = function () {
-				image_preview.src = reader.result;
-			}
-			if (source) {
-				reader.readAsDataURL(source);
-			} else {
-				image_preview.src = "";
-			}
+		var c = document.getElementById("myCanvas");
+		c.onclick = () => {
+			document.getElementById('image-camera').click()
 		}
-		UploadVideo = (value) => {
-			var source = value[0]
-			var reader = new FileReader();
-			var video_preview = document.getElementById("video-preview")
-			reader.onloadend = function () {
-				video_preview.src = reader.result;
+		var ctx = c.getContext("2d");
+		var img = new Image()
+		img.src = './images/fameimage.png'
+		onload = () => {
+			ctx.drawImage(img, 0, 0, c.width, c.height);
+		}
+		var i;
+		var video
+		UploadImage = (value) => {
+			if (video) {
+				video.pause()
 			}
+			if (i) {
+				clearInterval(i);
+			}
+			ctx.clearRect(0, 0, c.width, c.height);
+			ctx.drawImage(img, 0, 0, c.width, c.height);
+			var source = value[0]
+			var type = source.type.split('/')[0]
+			var reader = new FileReader();
 			if (source) {
 				reader.readAsDataURL(source);
-			} else {
-				video_preview.src = "";
+			}
+			reader.onloadend = () => {
+				if (type === 'image') {
+					var img2 = new Image();
+					img2.src = reader.result
+					img2.onload = () => {
+						var rwh = img2.width / img2.height
+						var newWidth = c.width
+						var newHeight = newWidth / rwh
+						if (rwh > 1) {
+							newHeight = c.height
+							newWidth = newHeight * rwh
+						}
+						var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
+						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
+						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
+						ctx.drawImage(img, 0, 0, c.width, c.height);
+					}
+				} else if (type === 'video') {
+					video = document.createElement('VIDEO')
+					// video.muted = true
+					video.src = reader.result
+					video.play()
+					video.onloadeddata = () => {
+						var rwh = video.videoWidth / video.videoHeight
+						var newWidth = c.width
+						var newHeight = newWidth / rwh
+						if (rwh > 1) {
+							newHeight = c.height
+							newWidth = newHeight * rwh
+						}
+						var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
+						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
+						i = setInterval(() => {
+							ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
+							ctx.drawImage(img, 0, 0, c.width, c.height)
+						}, 20);
+					}
+				} else {
+					alert('File not supported')
+				}
 			}
 		}
 	</script>

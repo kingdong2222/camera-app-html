@@ -6,7 +6,8 @@ html, body{
 }
 
 .main-body{
-    padding: 0 1rem;
+    /* padding: 0 1rem; */
+    text-align: center;
 }
 
 img, video{
@@ -14,17 +15,16 @@ img, video{
     max-width: 100%;
     height: auto;
 }
-.image-preview{
-    position: relative;
-}
-.container{
-    position: relative;
-}
+
 #image-frame{
-    position: absolute;
     left: 0;
 }
+
 .example-block{
     display: flex;
     flex-direction: column;
+}
+
+#image-camera{
+    display: none;
 }

@@ -21,6 +21,7 @@
 			<input type="file" name="image" accept="image/*,video/*,capture=camera" id="image-camera"
 				onchange="UploadImage(files)" #file>
 		</div>
+		<div id="note"></div>
 	</main>
 
 
@@ -74,6 +75,7 @@
 					video = document.createElement('VIDEO')
 					// video.muted = true
 					video.src = reader.result
+					document.getElementById('note').innerText = video.src
 					video.play()
 					video.onloadeddata = () => {
 						var rwh = video.videoWidth / video.videoHeight

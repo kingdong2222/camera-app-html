@@ -22,14 +22,14 @@
 				<img id="image-frame" src="./images/fameimage.png" />
 			</div>
 			
-			<input type="file" name="image" accept="image/*"  id="image-camera" onchange="UploadImage(files)">
+			<input type="file" name="image" accept="image/*;capture=camera"  id="image-camera" onchange="UploadImage(files)">
 		</div>
 
 		<h2>For Video</h2>
 
 		<div class="example-block" id="video-camera">
 			<video id="video-preview" height="300" controls></video>
-			<input type="file" name="video" accept="video/*"  onchange="UploadVideo(files)">
+			<input type="file" name="video" accept="video/*;capture=camera"  onchange="UploadVideo(files)">
 		</div>
 	</main>
 

@@ -62,9 +62,10 @@
 				if (type === 'image') {
 					var img2 = new Image();
 					img2.src = reader.result
-					img2.onload = () => {
-						document.getElementById('img-test').src = reader.result
-						var rwh = img2.width / img2.height
+					document.getElementById('img-test').src = reader.result
+					var img3 = document.getElementById('img-test')
+					img3.onload = () => {
+						var rwh = img3.width / img3.height
 						var newWidth = c.width
 						var newHeight = newWidth / rwh
 						if (rwh > 1) {
@@ -73,7 +74,7 @@
 						}
 						var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
 						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
-						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
+						ctx.drawImage(img3, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
 					}
 				}

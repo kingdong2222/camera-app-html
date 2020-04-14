@@ -77,8 +77,8 @@
 					video.src = reader.result
 					video.play()
 					video.onloadeddata = () => {
+						document.getElementById('note').innerText = 'ok'
 						var rwh = video.videoWidth / video.videoHeight
-						document.getElementById('note').innerText = rwh
 						var newWidth = c.width
 						var newHeight = newWidth / rwh
 						if (rwh > 1) {

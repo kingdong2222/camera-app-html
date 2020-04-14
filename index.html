@@ -40,6 +40,7 @@
 		var i;
 		var video
 		UploadImage = (value) => {
+			var note = "";
 			if (video) {
 				video.pause()
 			}
@@ -50,6 +51,7 @@
 			ctx.drawImage(img, 0, 0, c.width, c.height);
 			var source = value[0]
 			var type = source.type.split('/')[0]
+			note += 'Type: ' + type + '\n'
 			var reader = new FileReader();
 			if (source) {
 				reader.readAsDataURL(source);
@@ -76,7 +78,7 @@
 					video = document.createElement('VIDEO')
 					// video.muted = true
 					video.src = reader.result
-					document.getElementById('note').innerText = reader.result
+					document.getElementById('note').innerText = note
 					video.play()
 					video.onloadeddata = () => {
 						var rwh = video.videoWidth / video.videoHeight

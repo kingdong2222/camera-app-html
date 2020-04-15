@@ -140,10 +140,10 @@
 		}
 
 		exportVid = (blob) => {
+			document.getElementById('download').innerText = 'Download'
 			const vid = document.getElementById('video-preview')
 			vid.src = URL.createObjectURL(blob)
 			vid.play()
-			document.getElementById('download').innerText = 'Download'
 		}
 	</script>
 </body>

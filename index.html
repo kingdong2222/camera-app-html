@@ -121,11 +121,34 @@
 		}
 
 		document.getElementById('download').onclick = () => {
-			var dataURL = c.toDataURL('video/mp4', 1.0);
-			var link = document.createElement('a')
-			link.href = dataURL
-			link.download = makeid(10) + '.mp4'
-			link.click()
+			// var dataURL = c.toDataURL('video/mp4', 1.0);
+			// var link = document.createElement('a')
+			// link.href = dataURL
+			// link.download = makeid(10) + '.mp4'
+			// link.click()
+			const chunks = []; // here we will store our recorded media chunks (Blobs)
+			const stream = c.captureStream(); // grab our canvas MediaStream
+			const rec = new MediaRecorder(stream); // init the recorder
+			// every time the recorder has new data, we will store it in our array
+			rec.ondataavailable = e => chunks.push(e.data);
+			// only when the recorder stops, we construct a complete Blob from all the chunks
+			rec.onstop = e => exportVid(new Blob(chunks, { type: 'video/webm' }));
+
+			rec.start();
+			setTimeout(() => rec.stop(), 3000); // stop recording in 3s
+		}
+
+
+		exportVid = (blob) => {
+			const vid = document.createElement('video');
+			vid.src = URL.createObjectURL(blob);
+			vid.controls = true;
+			document.body.appendChild(vid);
+			const a = document.createElement('a');
+			a.download = 'myvid.webm';
+			a.href = vid.src;
+			a.textContent = 'download the video';
+			a.click()
 		}
 	</script>
 </body>

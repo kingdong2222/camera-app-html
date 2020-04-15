@@ -12,9 +12,19 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 3.2.3</h1>
+		<h1>DEMO 3.3.4</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
+		<div class="example-block">
+			<input type="file" name="image" accept="image/*,video/*,capture=camera" id="image-camera"
+				onchange="Upload(files)">
+			<input type="file" name="image" accept="image/*,capture=camera" onchange="Upload(files)" id="upload-image">
+			<input type="file" name="image" accept="video/*,capture=camera" onchange="Upload(files)" id="upload-video">
+		</div>
+		<div id='action'>
+			<img src="https://img.icons8.com/material-sharp/100/000000/stack-of-photos.png" id='upload-image-button' />
+			<img src="https://img.icons8.com/material-sharp/100/000000/video.png" id='upload-video-button' />
+		</div>
 		<div>
 			<a id="download" href="">Download</a>
 		</div>
@@ -23,20 +33,16 @@
 			<img id='image-preview' />
 			<video id='video-preview'></video>
 		</div>
-		<div class="example-block">
-			<input type="file" name="image" accept="image/*,video/*,capture=camera" id="image-camera"
-				onchange="UploadImage(files)">
-		</div>
 		<div id="note"></div>
 	</main>
 
 
 	<!-- Reference to your JavaScript file -->
 	<script>
+		document.getElementById('upload-image-button').onclick = () => document.getElementById('upload-image').click()
+		document.getElementById('upload-video-button').onclick = () => document.getElementById('upload-video').click()
 		var c = document.getElementById("myCanvas");
-		c.onclick = () => {
-			document.getElementById('image-camera').click()
-		}
+		c.onclick = () => document.getElementById('image-camera').click()
 		var ctx = c.getContext("2d");
 		var img = new Image()
 		img.src = './images/fameimage.png'
@@ -46,38 +52,19 @@
 		var i;
 		var video
 		var count
-		//random name download
-		makeid = (length) => {
-			var result = '';
-			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-			var charactersLength = characters.length;
-			for (var i = 0; i < length; i++) {
-				result += characters.charAt(Math.floor(Math.random() * charactersLength));
-			}
-			return result;
-		}
-		//random name download
 
-		UploadImage = (value) => {
+		Upload = (value) => {
 			var note = "";
-			if (video) {
-				video.pause()
-			}
-			if (i) {
-				clearInterval(i);
-			}
-			if (count) {
-				clearTimeout(count)
-			}
+			if (video) video.pause()
+			if (i) learInterval(i);
+			if (count) clearTimeout(count)
 			ctx.clearRect(0, 0, c.width, c.height);
 			ctx.drawImage(img, 0, 0, c.width, c.height);
 			var source = value[0]
 			var type = source.type.split('/')[0]
 			note += 'Type: ' + type + '\n'
 			var reader = new FileReader();
-			if (source) {
-				reader.readAsDataURL(source);
-			}
+			if (source) reader.readAsDataURL(source);
 			document.getElementById('note').innerText = note
 			reader.onload = () => {
 				if (type === 'image') {

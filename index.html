@@ -121,7 +121,7 @@
 		}
 
 		document.getElementById('download').onclick = () => {
-			var dataURL = c.toDataURL();
+			var dataURL = c.toDataURL('video/mp4', 1.0);
 			var link = document.createElement('a')
 			link.href = dataURL
 			link.download = makeid(10) + '.mp4'

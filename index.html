@@ -64,7 +64,6 @@
 				reader.readAsDataURL(source);
 				var type = source.type.split('/')[0]
 				note += 'Type: ' + type + '\n'
-				document.getElementById('note').innerText = note
 				reader.onload = () => {
 					if (type === 'image') {
 						var img2 = new Image();
@@ -101,7 +100,7 @@
 						rec.ondataavailable = e => chunks.push(e.data);
 						rec.start();
 						video.onloadeddata = () => {
-							console.log('start')
+							note += 'start \n'
 							// console.log(video.duration);
 							var rwh = video.videoWidth / video.videoHeight
 							var newWidth = c.width
@@ -113,27 +112,28 @@
 							var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
 							var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 							var x = 0;
+							document.getElementById('note').appendChild = note
 							i = setInterval(() => {
 								ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
 								ctx.drawImage(img, 0, 0, c.width, c.height)
 							}, 20);
-							var x = 0;
-							var ratio = 100 / video.duration
-							count = setInterval(() => {
-								x += ratio
-								document.getElementById('download').innerText = x.toFixed(2) + '% for download'
-							}, 1000);
+							// var x = 0;
+							// var ratio = 100 / video.duration
+							// count = setInterval(() => {
+							// 	x += ratio
+							// 	document.getElementById('download').innerText = x.toFixed(2) + '% for download'
+							// }, 1000);
 						}
-						video.onended = () => {
-							clearInterval(i);
-							clearTimeout(count)
-							document.getElementById('download').innerText = '100%'
-							rec.onstop = e => {
-								console.log()
-								exportVid(new Blob(chunks, { type: 'video/mp4' }))
-							};
-							rec.stop()
-						}
+						// video.onended = () => {
+						// 	clearInterval(i);
+						// 	clearTimeout(count)
+						// 	document.getElementById('download').innerText = '100%'
+						// 	rec.onstop = e => {
+						// 		console.log()
+						// 		exportVid(new Blob(chunks, { type: 'video/mp4' }))
+						// 	};
+						// 	rec.stop()
+						// }
 					}
 					else {
 						alert('File not supported')

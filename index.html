@@ -15,14 +15,16 @@
 <body>
 	<main class="main-body">
 		<h1>DEMO 3</h1>
-		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;" (click)="file.change()">
+		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
+		<a id="download">Download</a>
 		<div class="example-block">
 			<input type="file" name="image" accept="image/*,capture=camera" id="image-camera"
-				onchange="UploadImage(files)" #file>
+				onchange="UploadImage(files)">
 		</div>
 		<img id='img-test' />
 		<div id="note"></div>
+		<div id="canvas-test"></div>
 	</main>
 
 
@@ -58,11 +60,16 @@
 				reader.readAsDataURL(source);
 			}
 			document.getElementById('note').innerText = note
-			reader.onloadend = () => {
+			reader.onload = () => {
 				if (type === 'image') {
 					var img2 = new Image();
 					img2.src = reader.result
-					// document.getElementById('img-test').src = reader.result
+					// var canvas = document.createElement("CANVAS");
+					// canvas.width = 300
+					// canvas.height = 300
+					// var ctx1 = canvas.getContext("2d");
+					// ctx1.drawImage(img, 0, 0, c.width, c.height);
+					// document.getElementById('canvas-test').appendChild(canvas)
 					img2.onload = () => {
 						var rwh = img2.width / img2.height
 						var newWidth = c.width
@@ -75,6 +82,9 @@
 						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
+						var img3 = new Image();
+						img3.src = c.toDataURL()
+						console.log(img3)
 					}
 				}
 				else if (type === 'video') {
@@ -102,6 +112,11 @@
 					alert('File not supported')
 				}
 			}
+		}
+
+		document.getElementById('download').onclick = () => {
+			var dataURL = c.toDataURL();
+			console.log(dataURL);
 		}
 	</script>
 </body>

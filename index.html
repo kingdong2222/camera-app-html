@@ -12,7 +12,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 5.6.4</h1>
+		<h1>DEMO 5.6.1</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
@@ -129,6 +129,7 @@
 					}
 					else if (type === 'video') {
 						document.getElementById('video-preview').src = reader.result
+						document.getElementById('video-preview').play()
 						video = document.createElement('VIDEO')
 						video.muted = true
 						video.src = reader.result

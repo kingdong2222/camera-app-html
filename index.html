@@ -12,7 +12,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 5.5.4</h1>
+		<h1>DEMO 5.6.4</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
@@ -28,11 +28,11 @@
 		<div>
 			<a id="download" href=""></a>
 		</div>
-		<!-- <div id="preview">
-			<p id='count'></p>
-			<img id='image-preview' />
+		<div id="preview">
+			<!-- <p id='count'></p>
+			<img id='image-preview' /> -->
 			<video id='video-preview'></video>
-		</div> -->
+		</div>
 		<div id="note"></div>
 	</main>
 
@@ -56,7 +56,7 @@
 		Upload = (value) => {
 			note.innerHTML = ''
 			var source = value[0]
-			// console.log(source.name)
+			console.log(source)
 			//console
 			var para2 = document.createElement("P");
 			var t2 = document.createTextNode('name: ' + source.name);
@@ -128,6 +128,7 @@
 						}
 					}
 					else if (type === 'video') {
+						document.getElementById('video-preview').src = reader.result
 						video = document.createElement('VIDEO')
 						video.muted = true
 						video.src = reader.result

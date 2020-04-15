@@ -125,7 +125,7 @@
 					video.onended = () => {
 						clearInterval(i);
 						clearTimeout(count)
-						document.getElementById('count').innerText = '100%'
+						document.getElementById('download').innerText = '100%'
 						rec.onstop = e => {
 							console.log()
 							exportVid(new Blob(chunks, { type: 'video/mp4' }))
@@ -143,7 +143,7 @@
 			const vid = document.getElementById('video-preview')
 			vid.src = URL.createObjectURL(blob)
 			vid.play()
-			document.getElementById('count').innerText = 'Download'
+			document.getElementById('download').innerText = 'Download'
 		}
 	</script>
 </body>

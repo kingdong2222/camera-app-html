@@ -115,6 +115,10 @@
 							ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
 							ctx.drawImage(img, 0, 0, c.width, c.height)
 						}, 20);
+						document.getElementById('preview').src = c.toDataURL()
+						document.getElementById('download').href = c.toDataURL()
+						var time = new Date();
+						document.getElementById('download').download = makeid(10) + '-' + time.getTime() + '.jpg'
 					}
 				}
 				else {

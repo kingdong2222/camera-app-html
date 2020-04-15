@@ -84,7 +84,7 @@
 						var dataURL = c.toDataURL();
 						download.href = dataURL
 						const time = new Date()
-						download.download = video + '-' + time.getTime() + '.jpg'
+						download.download = 'video-' + time.getTime() + '.jpg'
 						// document.getElementById('image-preview').src = dataURL
 						download.innerHTML = 'Download'
 					}

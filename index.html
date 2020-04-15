@@ -15,7 +15,7 @@
 <body>
 	<main class="main-body">
 		<h1>DEMO 3</h1>
-		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
+		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;display: none;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<a id="download">Download</a>
 		<div class="example-block">
@@ -39,6 +39,7 @@
 		img.src = './images/fameimage.png'
 		onload = () => {
 			ctx.drawImage(img, 0, 0, c.width, c.height);
+			document.getElementById('canvas-test').src = c.toDataURL('image/jpeg', 1.0);
 		}
 		var i;
 		var video
@@ -64,12 +65,6 @@
 				if (type === 'image') {
 					var img2 = new Image();
 					img2.src = reader.result
-					// var canvas = document.createElement("CANVAS");
-					// canvas.width = 300
-					// canvas.height = 300
-					// var ctx1 = canvas.getContext("2d");
-					// ctx1.drawImage(img, 0, 0, c.width, c.height);
-					// document.getElementById('canvas-test').appendChild(canvas)
 					img2.onload = () => {
 						var rwh = img2.width / img2.height
 						var newWidth = c.width

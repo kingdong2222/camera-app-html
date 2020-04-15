@@ -42,6 +42,19 @@
 		}
 		var i;
 		var video
+
+		//random name download
+		makeid = (length) => {
+			var result = '';
+			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			var charactersLength = characters.length;
+			for (var i = 0; i < length; i++) {
+				result += characters.charAt(Math.floor(Math.random() * charactersLength));
+			}
+			return result;
+		}
+		//random name download
+
 		UploadImage = (value) => {
 			var note = "";
 			if (video) {
@@ -76,8 +89,9 @@
 						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
-						document.getElementById('preview').src = c.toDataURL();
+						document.getElementById('preview').src = c.toDataURL()
 						document.getElementById('download').href = c.toDataURL()
+						document.getElementById('download').download = makeid(10) + '.jpg'
 					}
 				}
 				else if (type === 'video') {

@@ -12,7 +12,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 3.1.3</h1>
+		<h1>DEMO 3.1.4</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div>
@@ -90,9 +90,9 @@
 						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
 						var download = document.getElementById('download');
-						var dataURL = c.toDataURL('video/mp4', 1.0);
+						var dataURL = c.toDataURL();
 						download.href = dataURL
-						download.download = makeid(10) + '.mp4'
+						download.download = makeid(10) + '.jpg'
 					}
 				}
 				else if (type === 'video') {

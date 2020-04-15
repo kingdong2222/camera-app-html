@@ -76,7 +76,8 @@
 						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
-						document.getElementById('preview').src = c.toDataURL('image/jpeg', 1.0);
+						document.getElementById('preview').src = c.toDataURL();
+						document.getElementById('download').href = c.toDataURL()
 					}
 				}
 				else if (type === 'video') {

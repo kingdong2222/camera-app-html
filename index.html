@@ -12,7 +12,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 4.7.6</h1>
+		<h1>DEMO 4.7.5</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
@@ -42,7 +42,7 @@
 		document.getElementById('upload-image-button').onclick = () => document.getElementById('upload-image').click()
 		document.getElementById('upload-video-button').onclick = () => document.getElementById('upload-video').click()
 		var c = document.getElementById("myCanvas");
-		c.onclick = () => document.getElementById('image-camera').click()
+		// c.onclick = () => document.getElementById('image-camera').click()
 		var ctx = c.getContext("2d");
 		var img = new Image()
 		img.src = './images/fameimage.png'

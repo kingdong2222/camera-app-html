@@ -4,17 +4,15 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 	<!-- Name of the app -->
 	<title>Camera App</title>
-
 	<!-- Link to main style sheet -->
 	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 3.1.2</h1>
+		<h1>DEMO 3.1.3</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div>
@@ -56,15 +54,6 @@
 			return result;
 		}
 		//random name download
-
-		document.getElementById('download').onclick = (e) => {
-			e.preventDefault()
-			var dataURL = c.toDataURL('video/mp4', 1.0);
-			var link = document.createElement('a')
-			link.href = dataURL
-			link.download = makeid(10) + '.mp4'
-			link.click()
-		}
 
 		UploadImage = (value) => {
 			var note = "";

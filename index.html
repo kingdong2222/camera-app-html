@@ -95,10 +95,14 @@
 				}
 				else if (type === 'video') {
 					video = document.createElement('VIDEO')
-					// video.muted = true
+					video.muted = true
 					video.src = reader.result
 					video.play()
+					const chunks = [];
+					const stream = c.captureStream();
+					const rec = new MediaRecorder(stream);
 					video.onloadeddata = () => {
+						console.log(start)
 						var rwh = video.videoWidth / video.videoHeight
 						var newWidth = c.width
 						var newHeight = newWidth / rwh
@@ -112,6 +116,13 @@
 							ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
 							ctx.drawImage(img, 0, 0, c.width, c.height)
 						}, 20);
+						rec.ondataavailable = e => chunks.push(e.data);
+						// rec.onstop = e => exportVid(new Blob(chunks, { type: 'video/mp4' }));
+						rec.start();
+					}
+					video.onended = () => {
+						console.log('end')
+						rec.onstop = e => exportVid(new Blob(chunks, { type: 'video/mp4' }));
 					}
 				}
 				else {
@@ -120,7 +131,7 @@
 			}
 		}
 
-		document.getElementById('download').onclick = (e) => {
+		recordCanvas = () => {
 			e.preventDefault()
 			// var dataURL = c.toDataURL('video/mp4', 1.0);
 			// var link = document.createElement('a')
@@ -135,7 +146,6 @@
 			rec.start();
 			setTimeout(() => rec.stop(), 5000); // stop recording in 3s
 		}
-
 
 		exportVid = (blob) => {
 			const vid = document.createElement('video');

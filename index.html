@@ -12,8 +12,8 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 3.1.8</h1>
-		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;display: none;">
+		<h1>DEMO 3.1.9</h1>
+		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div>
 			<a id="download" href="">Download</a>
@@ -26,6 +26,7 @@
 		<div id="preview">
 			<img id='image-preview' />
 			<video id='video-preview'></video>
+			<p id='count'></p>
 		</div>
 	</main>
 
@@ -44,7 +45,7 @@
 		}
 		var i;
 		var video
-
+		var count
 		//random name download
 		makeid = (length) => {
 			var result = '';
@@ -64,6 +65,9 @@
 			}
 			if (i) {
 				clearInterval(i);
+			}
+			if (count) {
+				clearTimeout(count)
 			}
 			ctx.clearRect(0, 0, c.width, c.height);
 			ctx.drawImage(img, 0, 0, c.width, c.height);
@@ -108,9 +112,9 @@
 					const rec = new MediaRecorder(stream);
 					rec.ondataavailable = e => chunks.push(e.data);
 					rec.start();
-					console.log(rec)
 					video.onloadeddata = () => {
 						console.log('start')
+						// console.log(video.duration);
 						var rwh = video.videoWidth / video.videoHeight
 						var newWidth = c.width
 						var newHeight = newWidth / rwh
@@ -124,12 +128,17 @@
 						i = setInterval(() => {
 							ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
 							ctx.drawImage(img, 0, 0, c.width, c.height)
-							x += 1
-							console.log(x)
 						}, 20);
+						var x = 0;
+						var ratio = 100 / video.duration
+						count = setInterval(() => {
+							x += ratio
+							document.getElementById('count').innerText = x.toFixed(2) + '%'
+						}, 1000);
 					}
 					video.onended = () => {
-						console.log('end')
+						clearInterval(i);
+						clearTimeout(count)
 						rec.onstop = e => {
 							console.log()
 							exportVid(new Blob(chunks, { type: 'video/mp4' }))
@@ -146,16 +155,7 @@
 		exportVid = (blob) => {
 			const vid = document.getElementById('video-preview');
 			vid.src = URL.createObjectURL(blob);
-			// console.log(vid.src)
-			// // vid.controls = true;
-			// document.body.appendChild(vid);
 			vid.play()
-			// const a = document.createElement('a');
-			// a.download = 'myvid.mp4';
-			// a.href = vid.src;
-			// a.textContent = 'download the video';
-			// console.log(a)
-			// a.click()
 		}
 	</script>
 </body>

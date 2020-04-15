@@ -12,7 +12,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 3.3.4</h1>
+		<h1>DEMO 4.3.4</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
@@ -26,13 +26,13 @@
 			<img src="https://img.icons8.com/material-sharp/100/000000/video.png" id='upload-video-button' />
 		</div>
 		<div>
-			<a id="download" href="">Download</a>
+			<a id="download" href=""></a>
 		</div>
-		<div id="preview">
+		<!-- <div id="preview">
 			<p id='count'></p>
 			<img id='image-preview' />
 			<video id='video-preview'></video>
-		</div>
+		</div> -->
 		<div id="note"></div>
 	</main>
 
@@ -46,9 +46,7 @@
 		var ctx = c.getContext("2d");
 		var img = new Image()
 		img.src = './images/fameimage.png'
-		onload = () => {
-			ctx.drawImage(img, 0, 0, c.width, c.height);
-		}
+		onload = () => ctx.drawImage(img, 0, 0, c.width, c.height);
 		var i;
 		var video
 		var count
@@ -87,6 +85,7 @@
 						download.href = dataURL
 						download.download = makeid(10) + '.jpg'
 						document.getElementById('image-preview').src = dataURL
+						download.innerHTML = 'Download'
 					}
 				}
 				else if (type === 'video') {
@@ -120,14 +119,13 @@
 						var ratio = 100 / video.duration
 						count = setInterval(() => {
 							x += ratio
-							document.getElementById('count').innerText = x.toFixed(2) + '%'
+							document.getElementById('download').innerText = x.toFixed(2) + '% for download'
 						}, 1000);
 					}
 					video.onended = () => {
 						clearInterval(i);
 						clearTimeout(count)
 						document.getElementById('count').innerText = '100%'
-						document.getElementById('count').innerText = ''
 						rec.onstop = e => {
 							console.log()
 							exportVid(new Blob(chunks, { type: 'video/mp4' }))
@@ -142,9 +140,10 @@
 		}
 
 		exportVid = (blob) => {
-			const vid = document.getElementById('video-preview');
-			vid.src = URL.createObjectURL(blob);
+			const vid = document.getElementById('video-preview')
+			vid.src = URL.createObjectURL(blob)
 			vid.play()
+			document.getElementById('count').innerText = 'Download'
 		}
 	</script>
 </body>

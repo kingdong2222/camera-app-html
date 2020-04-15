@@ -12,7 +12,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 4.3.5</h1>
+		<h1>DEMO 4.3.1</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
@@ -52,17 +52,17 @@
 		var count
 
 		Upload = (value) => {
-			var note = "";
-			if (video) video.pause()
-			if (i) learInterval(i);
-			if (count) clearTimeout(count)
-			ctx.clearRect(0, 0, c.width, c.height);
-			ctx.drawImage(img, 0, 0, c.width, c.height);
 			var source = value[0]
-			note += 'Type: ' + type + '\n'
-			var reader = new FileReader();
 			if (source) {
+				var note = "";
+				if (video) video.pause()
+				if (i) learInterval(i);
+				if (count) clearTimeout(count)
+				ctx.clearRect(0, 0, c.width, c.height);
+				ctx.drawImage(img, 0, 0, c.width, c.height);
+				var reader = new FileReader();
 				reader.readAsDataURL(source);
+				note += 'Type: ' + type + '\n'
 				var type = source.type.split('/')[0]
 				document.getElementById('note').innerText = note
 				reader.onload = () => {

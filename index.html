@@ -12,22 +12,22 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 3.1.9</h1>
+		<h1>DEMO 3.2.9</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div>
 			<a id="download" href="">Download</a>
+		</div>
+		<div id="preview">
+			<img id='image-preview' />
+			<video id='video-preview'></video>
+			<p id='count'></p>
 		</div>
 		<div class="example-block">
 			<input type="file" name="image" accept="image/*,video/*,capture=camera" id="image-camera"
 				onchange="UploadImage(files)">
 		</div>
 		<div id="note"></div>
-		<div id="preview">
-			<img id='image-preview' />
-			<video id='video-preview'></video>
-			<p id='count'></p>
-		</div>
 	</main>
 
 

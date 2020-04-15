@@ -139,6 +139,8 @@
 					video.onended = () => {
 						clearInterval(i);
 						clearTimeout(count)
+						document.getElementById('count').innerText = '100%'
+						document.getElementById('count').innerText = ''
 						rec.onstop = e => {
 							console.log()
 							exportVid(new Blob(chunks, { type: 'video/mp4' }))

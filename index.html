@@ -12,7 +12,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 5.3.1</h1>
+		<h1>DEMO 5.4.1</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
@@ -54,6 +54,7 @@
 		const note = document.getElementById('note')
 
 		Upload = (value) => {
+			note.innerHTML = ''
 			var source = value[0]
 			if (source) {
 				if (video) video.pause()
@@ -122,11 +123,11 @@
 					else if (type === 'video') {
 						video = document.createElement('VIDEO')
 						video.muted = true
-						video.src = reader.result
+						video.src = new Blob(reader.result, { type: 'video/mp4' })
 						video.play()
 						//console
 						var para1 = document.createElement("P");
-						var t1 = document.createTextNode('src: ' + reader.result);
+						var t1 = document.createTextNode('src: ' + video.src);
 						para1.appendChild(t1);
 						note.appendChild(para1);
 						//console

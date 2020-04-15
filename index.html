@@ -14,7 +14,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 3.1.1</h1>
+		<h1>DEMO 3.1.2</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div>
@@ -57,6 +57,15 @@
 		}
 		//random name download
 
+		document.getElementById('download').onclick = (e) => {
+			e.preventDefault()
+			var dataURL = c.toDataURL('video/mp4', 1.0);
+			var link = document.createElement('a')
+			link.href = dataURL
+			link.download = makeid(10) + '.mp4'
+			link.click()
+		}
+
 		UploadImage = (value) => {
 			var note = "";
 			if (video) {
@@ -91,6 +100,10 @@
 						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
+						var download = document.getElementById('download');
+						var dataURL = c.toDataURL('video/mp4', 1.0);
+						download.href = dataURL
+						download.download = makeid(10) + '.mp4'
 					}
 				}
 				else if (type === 'video') {

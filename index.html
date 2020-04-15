@@ -24,7 +24,7 @@
 		</div>
 		<img id='img-test' />
 		<div id="note"></div>
-		<div id="canvas-test"></div>
+		<img id="canvas-test"></img>
 	</main>
 
 
@@ -82,9 +82,7 @@
 						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
-						var img3 = new Image();
-						img3.src = c.toDataURL()
-						console.log(img3)
+						document.getElementById('canvas-test').src = c.toDataURL('image/jpeg', 1.0);
 					}
 				}
 				else if (type === 'video') {

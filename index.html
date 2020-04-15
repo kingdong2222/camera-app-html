@@ -30,8 +30,8 @@
 	<!-- Reference to your JavaScript file -->
 	<script>
 		var c = document.getElementById("myCanvas");
-		c.onclick = () => {
-			document.getElementById('preview').click()
+		document.getElementById('preview').onclick = () => {
+			document.getElementById('image-camera').click()
 		}
 		var ctx = c.getContext("2d");
 		var img = new Image()

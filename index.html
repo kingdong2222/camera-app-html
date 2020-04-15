@@ -14,7 +14,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 3.6</h1>
+		<h1>DEMO 3.7</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div>
@@ -140,8 +140,10 @@
 		exportVid = (blob) => {
 			const vid = document.createElement('video');
 			vid.src = URL.createObjectURL(blob);
+			console.log(vid.src)
 			vid.controls = true;
 			document.body.appendChild(vid);
+			vid.autoplay()
 			const a = document.createElement('a');
 			a.download = 'myvid.mp4';
 			a.href = vid.src;

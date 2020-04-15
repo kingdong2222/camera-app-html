@@ -62,8 +62,8 @@
 				ctx.drawImage(img, 0, 0, c.width, c.height);
 				var reader = new FileReader();
 				reader.readAsDataURL(source);
-				note += 'Type: ' + type + '\n'
 				var type = source.type.split('/')[0]
+				note += 'Type: ' + type + '\n'
 				document.getElementById('note').innerText = note
 				reader.onload = () => {
 					if (type === 'image') {

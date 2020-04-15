@@ -123,9 +123,9 @@
 		document.getElementById('download').onclick = () => {
 			var dataURL = c.toDataURL();
 			var link = document.createElement('a')
-			a.href = dataURL
-			a.download = makeid(10) + '.jpg'
-			a.click()
+			link.href = dataURL
+			link.download = makeid(10) + '.jpg'
+			link.click()
 		}
 	</script>
 </body>

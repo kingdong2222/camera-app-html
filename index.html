@@ -112,8 +112,7 @@
 							var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
 							var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 							var x = 0;
-							document.getElementById('note').innerHTML = note
-							i = setInterval(() => {
+								i = setInterval(() => {
 								ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
 								ctx.drawImage(img, 0, 0, c.width, c.height)
 							}, 20);

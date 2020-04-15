@@ -135,27 +135,11 @@
 			}
 		}
 
-		recordCanvas = () => {
-			e.preventDefault()
-			// var dataURL = c.toDataURL('video/mp4', 1.0);
-			// var link = document.createElement('a')
-			// link.href = dataURL
-			// link.download = makeid(10) + '.mp4'
-			// link.click()
-			const chunks = []; // here we will store our recorded media chunks (Blobs)
-			const stream = c.captureStream(); // grab our canvas MediaStream
-			const rec = new MediaRecorder(stream); // init the recorder
-			rec.ondataavailable = e => chunks.push(e.data);
-			rec.onstop = e => exportVid(new Blob(chunks, { type: 'video/mp4' }));
-			rec.start();
-			setTimeout(() => rec.stop(), 5000); // stop recording in 3s
-		}
-
 		exportVid = (blob) => {
 			const vid = document.createElement('video');
 			vid.src = URL.createObjectURL(blob);
 			console.log(vid.src)
-			vid.controls = true;
+			// vid.controls = true;
 			document.body.appendChild(vid);
 			vid.play()
 			const a = document.createElement('a');

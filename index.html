@@ -103,7 +103,8 @@
 					const rec = new MediaRecorder(stream);
 					rec.ondataavailable = e => chunks.push(e.data);
 					rec.start();
-					video.onload = () => {
+					console.log(rec)
+					video.onloadeddata = () => {
 						console.log('start')
 						var rwh = video.videoWidth / video.videoHeight
 						var newWidth = c.width

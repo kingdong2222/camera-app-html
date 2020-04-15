@@ -33,7 +33,7 @@
 			<img id='image-preview' />
 			<video id='video-preview'></video>
 		</div> -->
-		<p id="note"></p>
+		<div id="note"></div>
 	</main>
 
 
@@ -51,10 +51,11 @@
 		var video
 		var count
 
+		const note = document.getElementById('note')
+
 		Upload = (value) => {
 			var source = value[0]
 			if (source) {
-				var note = "";
 				if (video) video.pause()
 				if (i) learInterval(i);
 				if (count) clearTimeout(count)
@@ -63,7 +64,12 @@
 				var reader = new FileReader();
 				reader.readAsDataURL(source);
 				var type = source.type.split('/')[0]
-				note += 'Type: ' + type + '</br>'
+				//console
+				var para = document.createElement("P");
+				var t = document.createTextNode('Type: ' + type);
+				para.appendChild(t);
+				note.appendChild(para);
+				//console
 				reader.onload = () => {
 					if (type === 'image') {
 						var img2 = new Image();
@@ -78,32 +84,32 @@
 							}
 							var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
 							var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
-							
-							function doOnOrientationChange()
-							{
-								switch(window.orientation){
-									case 0: {
-										ctx.translate(cx, cy);              //translate to center of shape
-										ctx.rotate( (Math.PI / 180) * 90);
-										ctx.translate(-cx, -cy);            //translate center back to 0,0
 
-										ctx.drawImage(img2, xOffset,yOffset, newWidth, newHeight,);
+							// function doOnOrientationChange()
+							// {
+							// 	switch(window.orientation){
+							// 		case 0: {
+							// 			ctx.translate(cx, cy);              //translate to center of shape
+							// 			ctx.rotate( (Math.PI / 180) * 90);
+							// 			ctx.translate(-cx, -cy);            //translate center back to 0,0
 
-										ctx.translate(cx, cy);              //translate to center of shape
-										ctx.rotate( (Math.PI / 180) * -90);
-										ctx.translate(-cx, -cy);            //translate center back to 0,0
+							// 			ctx.drawImage(img2, xOffset,yOffset, newWidth, newHeight,);
 
-										ctx.drawImage(img, 0, 0, c.width, c.height);
-									}
-									break;
-									default: {        
-										ctx.drawImage(img2, xOffset,yOffset, newWidth, newHeight,);
-										ctx.drawImage(img, 0, 0, c.width, c.height);
-									}
-									break;
-								}
-							}
-							doOnOrientationChange();
+							// 			ctx.translate(cx, cy);              //translate to center of shape
+							// 			ctx.rotate( (Math.PI / 180) * -90);
+							// 			ctx.translate(-cx, -cy);            //translate center back to 0,0
+
+							// 			ctx.drawImage(img, 0, 0, c.width, c.height);
+							// 		}
+							// 		break;
+							// 		default: {        
+							// 			ctx.drawImage(img2, xOffset,yOffset, newWidth, newHeight,);
+							// 			ctx.drawImage(img, 0, 0, c.width, c.height);
+							// 		}
+							// 		break;
+							// 	}
+							// }
+							// doOnOrientationChange();
 							var download = document.getElementById('download');
 							var dataURL = c.toDataURL();
 							download.href = dataURL
@@ -118,14 +124,18 @@
 						video.muted = true
 						video.src = reader.result
 						video.play()
+						//console
+						var para1 = document.createElement("P");
+						var t1 = document.createTextNode('src: ' + reader.result);
+						para1.appendChild(t1);
+						note.appendChild(para1);
+						//console
 						// const chunks = [];
 						// const stream = c.captureStream();
 						// const rec = new MediaRecorder(stream);
 						// rec.ondataavailable = e => chunks.push(e.data);
 						// rec.start();
 						video.onloadeddata = () => {
-							note += 'start'
-							console.log(note);
 							var rwh = video.videoWidth / video.videoHeight
 							var newWidth = c.width
 							var newHeight = newWidth / rwh
@@ -136,7 +146,7 @@
 							var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
 							var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 							var x = 0;
-								i = setInterval(() => {
+							i = setInterval(() => {
 								ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
 								ctx.drawImage(img, 0, 0, c.width, c.height)
 							}, 20);

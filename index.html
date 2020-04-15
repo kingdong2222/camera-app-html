@@ -133,7 +133,7 @@
 			// every time the recorder has new data, we will store it in our array
 			rec.ondataavailable = e => chunks.push(e.data);
 			// only when the recorder stops, we construct a complete Blob from all the chunks
-			rec.onstop = e => exportVid(new Blob(chunks, { type: 'video/webm' }));
+			rec.onstop = e => exportVid(new Blob(chunks, { type: 'video/mp4' }));
 
 			rec.start();
 			setTimeout(() => rec.stop(), 3000); // stop recording in 3s
@@ -146,7 +146,7 @@
 			vid.controls = true;
 			document.body.appendChild(vid);
 			const a = document.createElement('a');
-			a.download = 'myvid.webm';
+			a.download = 'myvid.mp4';
 			a.href = vid.src;
 			a.textContent = 'download the video';
 			console.log(a)

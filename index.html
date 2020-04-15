@@ -12,7 +12,7 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 4.7.5</h1>
+		<h1>DEMO 4.3.5</h1>
 		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
 		<div class="example-block">
@@ -59,83 +59,85 @@
 			ctx.clearRect(0, 0, c.width, c.height);
 			ctx.drawImage(img, 0, 0, c.width, c.height);
 			var source = value[0]
-			var type = source.type.split('/')[0]
 			note += 'Type: ' + type + '\n'
 			var reader = new FileReader();
-			if (source) reader.readAsDataURL(source);
-			document.getElementById('note').innerText = note
-			reader.onload = () => {
-				if (type === 'image') {
-					var img2 = new Image();
-					img2.src = reader.result
-					img2.onload = () => {
-						var rwh = img2.width / img2.height
-						var newWidth = c.width
-						var newHeight = newWidth / rwh
-						if (rwh > 1) {
-							newHeight = c.height
-							newWidth = newHeight * rwh
+			if (source) {
+				reader.readAsDataURL(source);
+				var type = source.type.split('/')[0]
+				document.getElementById('note').innerText = note
+				reader.onload = () => {
+					if (type === 'image') {
+						var img2 = new Image();
+						img2.src = reader.result
+						img2.onload = () => {
+							var rwh = img2.width / img2.height
+							var newWidth = c.width
+							var newHeight = newWidth / rwh
+							if (rwh > 1) {
+								newHeight = c.height
+								newWidth = newHeight * rwh
+							}
+							var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
+							var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
+							ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
+							ctx.drawImage(img, 0, 0, c.width, c.height);
+							var download = document.getElementById('download');
+							var dataURL = c.toDataURL();
+							download.href = dataURL
+							const time = new Date()
+							download.download = 'video-' + time.getTime() + '.jpg'
+							// document.getElementById('image-preview').src = dataURL
+							download.innerHTML = 'Download'
 						}
-						var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
-						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
-						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
-						ctx.drawImage(img, 0, 0, c.width, c.height);
-						var download = document.getElementById('download');
-						var dataURL = c.toDataURL();
-						download.href = dataURL
-						const time = new Date()
-						download.download = 'video-' + time.getTime() + '.jpg'
-						// document.getElementById('image-preview').src = dataURL
-						download.innerHTML = 'Download'
 					}
-				}
-				else if (type === 'video') {
-					video = document.createElement('VIDEO')
-					video.muted = true
-					video.src = reader.result
-					video.play()
-					const chunks = [];
-					const stream = c.captureStream();
-					const rec = new MediaRecorder(stream);
-					rec.ondataavailable = e => chunks.push(e.data);
-					rec.start();
-					video.onloadeddata = () => {
-						console.log('start')
-						// console.log(video.duration);
-						var rwh = video.videoWidth / video.videoHeight
-						var newWidth = c.width
-						var newHeight = newWidth / rwh
-						if (rwh > 1) {
-							newHeight = c.height
-							newWidth = newHeight * rwh
+					else if (type === 'video') {
+						video = document.createElement('VIDEO')
+						video.muted = true
+						video.src = reader.result
+						video.play()
+						const chunks = [];
+						const stream = c.captureStream();
+						const rec = new MediaRecorder(stream);
+						rec.ondataavailable = e => chunks.push(e.data);
+						rec.start();
+						video.onloadeddata = () => {
+							console.log('start')
+							// console.log(video.duration);
+							var rwh = video.videoWidth / video.videoHeight
+							var newWidth = c.width
+							var newHeight = newWidth / rwh
+							if (rwh > 1) {
+								newHeight = c.height
+								newWidth = newHeight * rwh
+							}
+							var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
+							var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
+							var x = 0;
+							i = setInterval(() => {
+								ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
+								ctx.drawImage(img, 0, 0, c.width, c.height)
+							}, 20);
+							var x = 0;
+							var ratio = 100 / video.duration
+							count = setInterval(() => {
+								x += ratio
+								document.getElementById('download').innerText = x.toFixed(2) + '% for download'
+							}, 1000);
 						}
-						var xOffset = rwh > 1 ? ((c.width - newWidth) / 2) : 0;
-						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
-						var x = 0;
-						i = setInterval(() => {
-							ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
-							ctx.drawImage(img, 0, 0, c.width, c.height)
-						}, 20);
-						var x = 0;
-						var ratio = 100 / video.duration
-						count = setInterval(() => {
-							x += ratio
-							document.getElementById('download').innerText = x.toFixed(2) + '% for download'
-						}, 1000);
+						video.onended = () => {
+							clearInterval(i);
+							clearTimeout(count)
+							document.getElementById('download').innerText = '100%'
+							rec.onstop = e => {
+								console.log()
+								exportVid(new Blob(chunks, { type: 'video/mp4' }))
+							};
+							rec.stop()
+						}
 					}
-					video.onended = () => {
-						clearInterval(i);
-						clearTimeout(count)
-						document.getElementById('download').innerText = '100%'
-						rec.onstop = e => {
-							console.log()
-							exportVid(new Blob(chunks, { type: 'video/mp4' }))
-						};
-						rec.stop()
+					else {
+						alert('File not supported')
 					}
-				}
-				else {
-					alert('File not supported')
 				}
 			}
 		}

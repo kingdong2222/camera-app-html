@@ -14,23 +14,26 @@
 
 <body>
 	<main class="main-body">
-		<h1>DEMO 4</h1>
-		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;display: none;">
+		<h1>DEMO 3.1</h1>
+		<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.</canvas>
-		<a id="download">Download</a>
+		<div>
+			<a id="download" href="">Download</a>
+		</div>
 		<div class="example-block">
 			<input type="file" name="image" accept="image/*,video/*,capture=camera" id="image-camera"
 				onchange="UploadImage(files)">
 		</div>
+		<img id='img-test' />
 		<div id="note"></div>
-		<img id="preview" />
+		<div id="canvas-test"></div>
 	</main>
 
 
 	<!-- Reference to your JavaScript file -->
 	<script>
 		var c = document.getElementById("myCanvas");
-		document.getElementById('preview').onclick = () => {
+		c.onclick = () => {
 			document.getElementById('image-camera').click()
 		}
 		var ctx = c.getContext("2d");
@@ -38,7 +41,6 @@
 		img.src = './images/fameimage.png'
 		onload = () => {
 			ctx.drawImage(img, 0, 0, c.width, c.height);
-			document.getElementById('preview').src = c.toDataURL();
 		}
 		var i;
 		var video
@@ -89,11 +91,6 @@
 						var yOffset = rwh <= 1 ? ((c.height - newHeight) / 2) : 0;
 						ctx.drawImage(img2, xOffset, yOffset, newWidth, newHeight);
 						ctx.drawImage(img, 0, 0, c.width, c.height);
-						document.getElementById('preview').src = c.toDataURL()
-						document.getElementById('download').href = c.toDataURL()
-						var time = new Date();
-						console.log(time.getTime())
-						document.getElementById('download').download = makeid(10) + '-' + time.getTime() + '.jpg'
 					}
 				}
 				else if (type === 'video') {
@@ -115,10 +112,6 @@
 							ctx.drawImage(video, xOffset, yOffset, newWidth, newHeight);
 							ctx.drawImage(img, 0, 0, c.width, c.height)
 						}, 20);
-						document.getElementById('preview').src = c.toDataURL()
-						document.getElementById('download').href = c.toDataURL()
-						var time = new Date();
-						document.getElementById('download').download = makeid(10) + '-' + time.getTime() + '.jpg'
 					}
 				}
 				else {
@@ -129,7 +122,10 @@
 
 		document.getElementById('download').onclick = () => {
 			var dataURL = c.toDataURL();
-			console.log(dataURL);
+			var link = document.createElement('a')
+			a.href = dataURL
+			a.download = makeid(10) + '.jpg'
+			a.click()
 		}
 	</script>
 </body>

@@ -93,7 +93,7 @@
 						document.getElementById('download').href = c.toDataURL()
 						var time = new Date();
 						console.log(time.getTime())
-						document.getElementById('download').download = makeid(10) + '.jpg'
+						document.getElementById('download').download = makeid(10) + '-' + time.getTime() + '.jpg'
 					}
 				}
 				else if (type === 'video') {

@@ -44,12 +44,14 @@ h2,h4,p{
     top: 27%;
     right: -12%;
     max-width: 30%;
+    z-index: 3;
 }
 .heart{
     position: absolute;
     max-width: 15.6%;
     top: 50%;
     right: 6%;
+    z-index: 3;
 }
 .group-button{
     display: flex;
@@ -96,7 +98,7 @@ h2,h4,p{
 .modal {
     display: none; 
     position: fixed;
-    z-index: 1;
+    z-index: 5;
     padding-top: 80px;
     left: 0;
     top: 0;

@@ -137,3 +137,13 @@ h2,h4,p{
     text-decoration: none;
     cursor: pointer;
 }
+
+#myCanvas{
+    outline: 1px solid #d3d3d3;
+    position: absolute;
+    top: -25px;
+    left: -7px;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}

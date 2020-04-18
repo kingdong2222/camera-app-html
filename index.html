@@ -17,7 +17,7 @@
 		<img class='logo' src='images/Logo.png' />
 		<img class='poster' src="images/poster-only-desktop.png"/>
 	</div>
-	
+	<img class='poster-rotate' src="images/please_rotate_your_phone.png"/>
 	<main class="main-body">
 		<img class='logo' src='images/Logo.png' />
 		<div class='group-title'>
@@ -915,6 +915,24 @@
 			}
 		}
 		//upload image
+
+		// Converts canvas to an image
+		function convertCanvasToImage(canvas) {
+			var image = new Image();
+			image.src = canvas.toDataURL("image/png");
+			return image;
+		}
+
+		document.getElementById('myBtnModal').onclick= function(){
+			modal.style.display = "block";
+			var image = convertCanvasToImage(document.getElementById("myCanvas"));
+			var anchor = document.createElement('a');
+
+			console.log(anchor);
+			anchor.setAttribute('href', image.src);
+			anchor.setAttribute('download', 'image.png');
+			anchor.click();
+		}
 
 	</script>
 </body>

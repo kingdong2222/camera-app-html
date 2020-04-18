@@ -966,9 +966,37 @@
 
 		//handle rotate for mobile
 		drawRotatedVideo = (degrees, image) => {
+			console.log(image.duration)
 			console.log('drawRotatedVideo')
 			const tempCanvas = document.createElement('CANVAS')
 			const tempctx = tempCanvas.getContext("2d");
+
+			//recorder
+			const chunks = []
+			recorder = new MediaRecorder(tempctx.canvas.captureStream(30));
+			recorder.ondataavailable = (e) => {
+				if (e.data.size > 0) {
+					chunks.push(e.data);
+				}
+			};
+			recorder.onstop = () => {
+				const blob = new Blob(chunks, { type: 'video/mp4' });
+				const url = window.URL.createObjectURL(blob);
+				const rotatedVideo = document.createElement('VIDEO')
+				rotatedVideo.src = url
+				rotatedVideo.setAttribute('muted', '')
+				rotatedVideo.play()
+				rotatedVideo.onloadeddata = () => {
+					console.log('onstop')
+					renderCanvasVideo(rotatedVideo)
+				}
+			};
+			recorder.start()
+			setTimeout(() => {
+				recorder.stop()
+			}, image.duration * 1000);
+			//recorder
+
 			tempCanvas.height = 300
 			tempCanvas.width = 300
 			let tempW = image.videoHeight
@@ -1027,7 +1055,7 @@
 			console.log(rwh, xOffset, yOffset, newWidth, newHeight)
 			setInterval(() => {
 				ctx.drawImage(image, xOffset, yOffset, newWidth, newHeight);
-				ctx.drawImage(frame, 0, 0, 300, 300)
+				ctx.drawImage(frame, 0, 0, canvas.width, canvas.height)
 			}, 20)
 			ctx.restore()
 			// loader.style.display = 'none'
@@ -1044,33 +1072,9 @@
 				const video = document.createElement('VIDEO')
 				video.src = URL.createObjectURL(source)
 				video.setAttribute('autoplay', '')
-				video.setAttribute('muted', '')
 				video.setAttribute('playsinline', '')
+				video.muted = 'muted'
 				// video.setAttribute('controls', '')
-
-				const recordingCanvas = canvas1;
-				const chunks = []
-				recordingCtx = recordingCanvas.getContext('2d');
-				recorder = new MediaRecorder(recordingCtx.canvas.captureStream(30));
-				recorder.ondataavailable = (e) => {
-					if (e.data.size > 0) {
-						chunks.push(e.data);
-					}
-				};
-				recorder.onstop = () => {
-					const blob = new Blob(chunks, { type: 'video/mp4' });
-					const url = window.URL.createObjectURL(blob);
-					const rotatedVideo = document.createElement('VIDEO')
-					rotatedVideo.src = url
-					rotatedVideo.setAttribute('muted', '')
-					rotatedVideo.play()
-					rotatedVideo.onloadeddata = () => {
-						console.log('onstop')
-						renderCanvasVideo(rotatedVideo)
-					}
-				};
-				recorder.start()
-
 				video.onloadeddata = () => {
 					const exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));
 					switch (exif.Orientation) {
@@ -1087,9 +1091,6 @@
 							drawRotatedVideo(0, video)
 							break;
 					}
-				}
-				video.onended = () => {
-					recorder.stop();
 				}
 			}
 		}

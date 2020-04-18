@@ -272,11 +272,20 @@ h2,h4,p{
         display: block;
         height: 100%;
         width: 100%;
+        position: relative;
+    }
+    .poster-only-desktop .poster{
         object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .poster-only-desktop .logo{
+        position: absolute;
+        top: 5%;
+        left: 5%;
     }
 }
 
-/* auto set portrait when rotate device */
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
     html {
       transform: rotate(-90deg);
@@ -289,4 +298,3 @@ h2,h4,p{
       left: 0;
     }
 }
-

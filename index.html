@@ -1074,6 +1074,7 @@
 				video.setAttribute('autoplay', '')
 				video.setAttribute('playsinline', '')
 				video.muted = 'muted'
+				video.play()
 				// video.setAttribute('controls', '')
 				video.onloadeddata = () => {
 					const exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));

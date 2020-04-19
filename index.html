@@ -1146,11 +1146,12 @@
 		streaming = (canvas, time) => {
 			alert('streaming: time: ' + time)
 			recordedChunks = []
+			alert('1')
 			const stream = canvas.captureStream(25)
 			const options = { mimeType: "video/webm; codecs=vp9" };
 			mediaRecorder = new MediaRecorder(stream, options);
 			mediaRecorder.ondataavailable = handleDataAvailable;
-			console.log('ok')
+			alert('2')
 			mediaRecorder.start();
 			setTimeout(event => {
 				console.log("stopping");
@@ -1159,7 +1160,7 @@
 		}
 
 		handleDataAvailable = (event) => {
-			console.log("data-available");
+			alert("data-available");
 			console.log(event)
 			if (event.data.size > 0) {
 				recordedChunks.push(event.data);

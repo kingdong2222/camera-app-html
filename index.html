@@ -1008,27 +1008,28 @@
 			const tempCanvas = document.createElement('CANVAS')
 			const tempctx = tempCanvas.getContext("2d");
 			document.body.appendChild(tempCanvas)
+			
 			//recorder
-			const chunks = []
-			recorder = new MediaRecorder(tempctx.canvas.captureStream(30));
-			recorder.ondataavailable = (e) => {
-				if (e.data.size > 0) {
-					chunks.push(e.data);
-				}
-			};
-			recorder.onstop = () => {
-				const blob = new Blob(chunks, { type: 'video/mp4' });
-				const url = window.URL.createObjectURL(blob);
-				alert(url)
-				const rotatedVideo = document.createElement('VIDEO')
-				rotatedVideo.src = url
-				rotatedVideo.setAttribute('muted', '')
-				rotatedVideo.play()
-				rotatedVideo.onloadeddata = () => {
-					console.log('onstop')
-					renderCanvasVideo(rotatedVideo)
-				}
-			};
+			// const chunks = []
+			// recorder = new MediaRecorder(tempctx.canvas.captureStream(30));
+			// recorder.ondataavailable = (e) => {
+			// 	if (e.data.size > 0) {
+			// 		chunks.push(e.data);
+			// 	}
+			// };
+			// recorder.onstop = () => {
+			// 	const blob = new Blob(chunks, { type: 'video/mp4' });
+			// 	const url = window.URL.createObjectURL(blob);
+			// 	alert(url)
+			// 	const rotatedVideo = document.createElement('VIDEO')
+			// 	rotatedVideo.src = url
+			// 	rotatedVideo.setAttribute('muted', '')
+			// 	rotatedVideo.play()
+			// 	rotatedVideo.onloadeddata = () => {
+			// 		console.log('onstop')
+			// 		renderCanvasVideo(rotatedVideo)
+			// 	}
+			// };
 			// recorder.start()
 			// setTimeout(() => {
 			// 	recorder.stop()

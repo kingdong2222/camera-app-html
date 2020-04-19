@@ -1008,7 +1008,7 @@
 			const tempCanvas = document.createElement('CANVAS')
 			const tempctx = tempCanvas.getContext("2d");
 			document.body.appendChild(tempCanvas)
-			
+
 			//recorder
 			// const chunks = []
 			// recorder = new MediaRecorder(tempctx.canvas.captureStream(30));
@@ -1114,7 +1114,7 @@
 				video.setAttribute('playsinline', '')
 				video.muted = 'muted'
 				video.play()
-				document.body.appendChild(video)
+				// document.body.appendChild(video)
 
 				// video.setAttribute('controls', '')
 				video.onloadeddata = () => {

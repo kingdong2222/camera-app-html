@@ -1148,8 +1148,11 @@
 			recordedChunks = []
 			alert('1')
 			const stream = canvas.captureStream(25)
+			alert('2')
 			const options = { mimeType: "video/webm; codecs=vp9" };
+			alert('3')
 			mediaRecorder = new MediaRecorder(stream, options);
+			alert('4')
 			mediaRecorder.ondataavailable = handleDataAvailable;
 			alert('2')
 			mediaRecorder.start();

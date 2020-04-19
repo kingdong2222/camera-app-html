@@ -1003,7 +1003,7 @@
 
 		//handle rotate for mobile
 		drawRotatedVideo = (degrees, image) => {
-			alert(image.duration)
+			// alert(image.duration)
 			console.log('drawRotatedVideo')
 			const tempCanvas = document.createElement('CANVAS')
 			const tempctx = tempCanvas.getContext("2d");
@@ -1035,6 +1035,8 @@
 			// 	recorder.stop()
 			// }, image.duration * 1000);
 			//recorder
+
+			streaming(tempCanvas, image.duration)
 
 			tempCanvas.height = 300
 			tempCanvas.width = 300
@@ -1138,6 +1140,56 @@
 			}
 		}
 		//handle upload video
+
+		let recordedChunks = [];
+
+		streaming = (canvas, time) => {
+			console.log(time)
+			recordedChunks = []
+			const stream = canvas.captureStream(25)
+			const options = { mimeType: "video/webm; codecs=vp9" };
+			mediaRecorder = new MediaRecorder(stream, options);
+			mediaRecorder.ondataavailable = handleDataAvailable;
+			console.log('ok')
+			mediaRecorder.start();
+			setTimeout(event => {
+				console.log("stopping");
+				mediaRecorder.stop();
+			}, time * 1000);
+		}
+
+		handleDataAvailable = (event) => {
+			console.log("data-available");
+			console.log(event)
+			if (event.data.size > 0) {
+				recordedChunks.push(event.data);
+				console.log(recordedChunks);
+				download();
+			} else {
+				// ...
+			}
+		}
+
+		download = () => {
+			var blob = new Blob(recordedChunks, {
+				type: "video/mp4"
+			});
+			var url = URL.createObjectURL(blob);
+			alert(url)
+			// console.log(url)
+			const stream = document.createElement('video')
+			stream.src = url
+			stream.muted = 'muted'
+			stream.play()
+			document.body.appendChild(stream)
+			// var a = document.createElement("a");
+			// document.body.appendChild(a);
+			// a.style = "display: none";
+			// a.href = url;
+			// a.download = "test.mp4";
+			// a.click();
+			// window.URL.revokeObjectURL(url);
+		}
 		//video
 	</script>
 </body>

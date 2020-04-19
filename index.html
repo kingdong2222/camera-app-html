@@ -1007,7 +1007,7 @@
 			console.log('drawRotatedVideo')
 			const tempCanvas = document.createElement('CANVAS')
 			const tempctx = tempCanvas.getContext("2d");
-
+			document.body.appendChild(tempCanvas)
 			//recorder
 			const chunks = []
 			recorder = new MediaRecorder(tempctx.canvas.captureStream(30));
@@ -1029,10 +1029,10 @@
 					renderCanvasVideo(rotatedVideo)
 				}
 			};
-			recorder.start()
-			setTimeout(() => {
-				recorder.stop()
-			}, image.duration * 1000);
+			// recorder.start()
+			// setTimeout(() => {
+			// 	recorder.stop()
+			// }, image.duration * 1000);
 			//recorder
 
 			tempCanvas.height = 300
@@ -1115,7 +1115,6 @@
 				video.play()
 				// video.setAttribute('controls', '')
 				video.onloadeddata = () => {
-					alert(video.played)
 					// const exif = EXIF.readFromBinaryFile(base64ToArrayBuffer(reader.result));
 					// switch (exif.Orientation) {
 					// 	case 8:
@@ -1137,10 +1136,6 @@
 		}
 		//handle upload video
 		//video
-
-		window.onload = () => {
-			alert('check')
-		}
 	</script>
 </body>
 

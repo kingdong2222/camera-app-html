@@ -1003,7 +1003,7 @@
 
 		//handle rotate for mobile
 		drawRotatedVideo = (degrees, image) => {
-			console.log(image.duration)
+			alert(image.duration)
 			console.log('drawRotatedVideo')
 			const tempCanvas = document.createElement('CANVAS')
 			const tempctx = tempCanvas.getContext("2d");
@@ -1018,6 +1018,7 @@
 			};
 			recorder.onstop = () => {
 				const blob = new Blob(chunks, { type: 'video/mp4' });
+				console.log(blob)
 				const url = window.URL.createObjectURL(blob);
 				const rotatedVideo = document.createElement('VIDEO')
 				rotatedVideo.src = url

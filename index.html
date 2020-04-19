@@ -1135,7 +1135,7 @@
 					// 		drawRotatedVideo(0, video)
 					// 		break;
 					// }
-					drawRotatedVideo(0, video)
+					renderCanvasVideo(video)
 				}
 			}
 		}
@@ -1152,6 +1152,7 @@
 			const options = { mimeType: "video/webm; codecs=vp9" };
 			alert('3')
 			const mediaRecorder = new MediaRecorder(stream, options);
+			console.log(mediaRecorder)
 			alert('4 ' + mediaRecorder)
 			mediaRecorder.ondataavailable = handleDataAvailable;
 			alert('5')

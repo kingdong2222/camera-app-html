@@ -1018,8 +1018,8 @@
 			};
 			recorder.onstop = () => {
 				const blob = new Blob(chunks, { type: 'video/mp4' });
-				console.log(blob)
 				const url = window.URL.createObjectURL(blob);
+				alert(url)
 				const rotatedVideo = document.createElement('VIDEO')
 				rotatedVideo.src = url
 				rotatedVideo.setAttribute('muted', '')

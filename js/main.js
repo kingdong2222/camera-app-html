@@ -11,6 +11,8 @@ window.onload = () => {
     const frame = new Image()
     frame.src = './images/photoframe.png'
 
+    var i;
+
     canvas.width = innerWidth * 0.71
     canvas.height = innerWidth * 0.71
     //convert base64 to array buffer
@@ -28,7 +30,7 @@ window.onload = () => {
 
     //render canvas
     renderCanvas = (image) => {
-        console.log(image)
+        // console.log(image)
         const rwh = image.width / image.height
         let newWidth = canvas.width
         let newHeight = newWidth / rwh
@@ -91,10 +93,13 @@ window.onload = () => {
     }
     //rotate image for mobile
 
-    uploadImage.onchange = (e) => {
+    uploadImage.onchange = (value) => handleUploadImage(value)
+
+    handleUploadImage = (e) => {
+        clearInterval(i)
         const source = e.target.files[0]
         const reader = new FileReader();
-        console.log(source)
+        // console.log(source)
         reader.readAsDataURL(source);
         // loader.style.display = 'block'
         // canvas.style.display = 'none'
@@ -218,9 +223,9 @@ window.onload = () => {
         const xOffset = rwh > 1 ? ((canvas.width - newWidth) / 2) : 0;
         const yOffset = rwh <= 1 ? ((canvas.height - newHeight) / 2) : 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        console.log(rwh, xOffset, yOffset, newWidth, newHeight)
-        streaming(image.duration)
-        setInterval(() => {
+        // console.log(rwh, xOffset, yOffset, newWidth, newHeight)
+        // streaming(image.duration)
+        i = setInterval(() => {
             ctx.drawImage(image, xOffset, yOffset, newWidth, newHeight);
             ctx.drawImage(frame, 0, 0, canvas.width, canvas.height)
         }, 20)
@@ -232,7 +237,9 @@ window.onload = () => {
     //handle add fram
 
     //handle upload video
-    uploadVideo.onchange = (value) => {
+    uploadVideo.onchange = (e) => handleUploadVideo(e)
+    handleUploadVideo = (value) => {
+        clearInterval(i)
         var source = value.target.files[0]
         const reader = new FileReader();
         reader.readAsDataURL(source);
@@ -246,6 +253,7 @@ window.onload = () => {
             video.onloadeddata = () => {
                 renderCanvasVideo(video)
             }
+            video.onended = () => clearInterval(i)
         }
     }
     //handle upload video
@@ -276,7 +284,7 @@ window.onload = () => {
     }
 
     download = () => {
-        console.log(recordedChunks)
+        // console.log(recordedChunks)
         var blob = new Blob(recordedChunks, {
             type: "video/webm"
         });
@@ -298,4 +306,17 @@ window.onload = () => {
     }
     //recorder
 
+    //upload
+    const uploadFile = document.getElementById('upload-file')
+    const uploadAll = document.getElementById('upload-all')
+    uploadFile.onclick = () => uploadAll.click()
+    uploadAll.onchange = (value) => {
+        const type = value.target.files[0].type.split('/')[0]
+        if(type === 'image'){
+            handleUploadImage(value)
+        } else{
+            handleUploadVideo(value)
+        }
+    }
+    //upload
 }

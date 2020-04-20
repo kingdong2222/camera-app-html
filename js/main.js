@@ -224,7 +224,7 @@ window.onload = () => {
         const yOffset = rwh <= 1 ? ((canvas.height - newHeight) / 2) : 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         // console.log(rwh, xOffset, yOffset, newWidth, newHeight)
-        // streaming(image.duration)
+        streaming(image.duration)
         i = setInterval(() => {
             ctx.drawImage(image, xOffset, yOffset, newWidth, newHeight);
             ctx.drawImage(frame, 0, 0, canvas.width, canvas.height)
@@ -290,7 +290,7 @@ window.onload = () => {
         });
         var url = URL.createObjectURL(blob);
         // alert(url)
-        // console.log(url)
+        console.log(url)
         const stream = document.createElement('video')
         stream.src = url
         stream.muted = 'muted'

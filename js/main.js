@@ -254,7 +254,9 @@ window.onload = () => {
             button.onclick = () => video.play()
 
             video.onloadeddata = () => {
-                button.click()
+                setTimeout(() => {
+                    button.click()
+                }, 3000);
                 renderCanvasVideo(video)
             }
             video.onended = () => clearInterval(i)

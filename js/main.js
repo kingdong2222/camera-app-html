@@ -250,6 +250,9 @@ window.onload = () => {
             video.setAttribute('playsinline', '')
             video.muted = 'muted'
             video.play()
+            video.onsuspend = (event) => {
+                video.play()
+            };
             video.onloadeddata = () => {
                 renderCanvasVideo(video)
             }
@@ -312,9 +315,9 @@ window.onload = () => {
     uploadFile.onclick = () => uploadAll.click()
     uploadAll.onchange = (value) => {
         const type = value.target.files[0].type.split('/')[0]
-        if(type === 'image'){
+        if (type === 'image') {
             handleUploadImage(value)
-        } else{
+        } else {
             handleUploadVideo(value)
         }
     }

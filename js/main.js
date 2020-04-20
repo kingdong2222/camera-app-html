@@ -275,7 +275,10 @@ window.onload = () => {
         video.play()
         renderCanvasVideo(video)
     }
-    video.onended = () => clearInterval(i)
+    video.onended = () => {
+        clearInterval(i)
+        playDiv.style.display = 'flex'
+    }
 
     //handle upload video
     uploadVideo.onchange = (e) => handleUploadVideo(e)

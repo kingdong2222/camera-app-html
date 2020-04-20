@@ -252,9 +252,9 @@ window.onload = () => {
 
             const button = document.createElement('button')
             button.onclick = () => video.play()
-            button.click()
 
             video.onloadeddata = () => {
+                button.click()
                 renderCanvasVideo(video)
             }
             video.onended = () => clearInterval(i)

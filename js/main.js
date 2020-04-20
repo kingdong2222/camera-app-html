@@ -294,7 +294,6 @@ window.onload = () => {
         const stream = document.createElement('video')
         stream.src = url
         stream.muted = 'muted'
-        stream.setAttribute('playsinline', '')
         stream.play()
         document.body.appendChild(stream)
         // var a = document.createElement("a");

@@ -249,10 +249,9 @@ window.onload = () => {
             video.setAttribute('autoplay', '')
             video.setAttribute('playsinline', '')
             video.muted = 'muted'
-            video.play()
-            video.onsuspend = (event) => {
+            setTimeout(() => {
                 video.play()
-            };
+            }, 1000);
             video.onloadeddata = () => {
                 renderCanvasVideo(video)
             }

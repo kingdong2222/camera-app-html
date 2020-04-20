@@ -249,14 +249,12 @@ window.onload = () => {
             video.setAttribute('autoplay', '')
             video.setAttribute('playsinline', '')
             video.muted = 'muted'
-
+            video.setAttribute('preload', 'auto')
             const button = document.createElement('button')
             button.onclick = () => video.play()
+            button.click()
 
             video.onloadeddata = () => {
-                setTimeout(() => {
-                    button.click()
-                }, 3000);
                 renderCanvasVideo(video)
             }
             video.onended = () => clearInterval(i)

@@ -23,8 +23,8 @@ window.onload = () => {
 
     var i;
 
-    canvas_hd.width = innerWidth*1
-    canvas_hd.height = innerWidth*1
+    canvas_hd.width = innerWidth*2
+    canvas_hd.height = innerWidth*2
 
     canvas.width = innerWidth * 0.71
     canvas.height = innerWidth * 0.71

@@ -833,12 +833,12 @@
 			return image;
 		}
 
-		//download image
-		// document.getElementById('myBtnModal').onclick= function(){
-		// 	modal.style.display = "block";
-		// 	var image = convertCanvasToImage(document.getElementById("myCanvas"));
-		// 	download(image.src, 'image-redoxon', 'png');
-		// }
+		// download image
+		document.getElementById('myBtnModal').onclick= function(){
+			modal.style.display = "block";
+			var image = convertCanvasToImage(document.getElementById("myCanvas"));
+			download(image.src, 'image-redoxon', 'png');
+		}
 
 		// function download format download(file.src,'name','type of file')
 
@@ -864,16 +864,16 @@
 
 		}
 
-		document.getElementById('myBtnModal').onclick = function () {
-			modal.style.display = "block";
-			var image = convertCanvasToImage(document.getElementById("myCanvasHD"));
-			var anchor = document.createElement('a');
+		// document.getElementById('myBtnModal').onclick = function () {
+		// 	modal.style.display = "block";
+		// 	var image = convertCanvasToImage(document.getElementById("myCanvasHD"));
+		// 	var anchor = document.createElement('a');
 
-			console.log(anchor);
-			anchor.setAttribute('href', image.src);
-			anchor.setAttribute('download', 'image.jpeg');
-			anchor.click();
-		}
+		// 	console.log(anchor);
+		// 	anchor.setAttribute('href', image.src);
+		// 	anchor.setAttribute('download', 'image.jpeg');
+		// 	anchor.click();
+		// }
 	</script>
 </body>
 

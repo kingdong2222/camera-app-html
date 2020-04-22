@@ -226,7 +226,7 @@ window.onload = () => {
         // console.log(source)
         reader.readAsDataURL(source);
         // loader.style.display = 'block'
-        // canvas.style.display = 'none'
+        canvas_hd.style.display = 'none'
         reader.onloadend = () => {
             const preview = new Image();
             preview.src = reader.result

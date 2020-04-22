@@ -14,9 +14,9 @@ window.onload = () => {
     var ctx1 = canvas1.getContext("2d");
 
     const canvas_hd = document.getElementById("myCanvasHD");
-    const ctx_hd = canvas.getContext("2d");
+    const ctx_hd = canvas_hd.getContext("2d");
     var canvas1_hd = document.getElementById("rotate-canvasHD");
-    var ctx1_hd = canvas1.getContext("2d");
+    var ctx1_hd = canvas1_hd.getContext("2d");
 
     const frame = new Image()
     frame.src = './images/photoframe.png'
@@ -226,7 +226,7 @@ window.onload = () => {
         // console.log(source)
         reader.readAsDataURL(source);
         // loader.style.display = 'block'
-        canvas_hd.style.display = 'none'
+        // canvas_hd.style.display = 'none'
         reader.onloadend = () => {
             const preview = new Image();
             preview.src = reader.result
